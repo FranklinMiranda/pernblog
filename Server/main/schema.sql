@@ -25,4 +25,4 @@ CREATE TABLE comments (
     user_id INT REFERENCES users(uid),
     post_id INT REFERENCES posts(pid),
     date_created TIMESTAMP
-)
+);
