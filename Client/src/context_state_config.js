@@ -23,6 +23,12 @@ const ContextState = () => {
     dispatchReducer1(ACTIONS.success());
   };
 
+  const handleDispatchFalse = () => {
+    // dispatchReducer1(type: "FAILURE")
+    // dispatchReducer1(ACTIONS.FAILURE)
+    dispatchReducer1(ACTIONS.failure());
+  };
+
   /* 
         Auth Reducer
     */
@@ -48,7 +54,7 @@ const ContextState = () => {
     Form Reducer
     */
 
-  const [stateFormReducer, dispatchFormReducer] = useReducer(FormReducer.FormReducer.FormReducer.initialState);
+  const [stateFormReducer, dispatchFormReducer] = useReducer(FormReducer.FormReducer, FormReducer.initialState);
 
   const handleFormChange = (event) => {
     dispatchFormReducer(ACTIONS.user_input_change(event.target.value));
