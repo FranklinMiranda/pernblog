@@ -46,6 +46,14 @@ router.put('/api/put/post', (req, res, next) => {
   );
 });
 
+router.delete('/api/delete/postcomments', (req, res, next) => {
+  const post_id = req.body.post_id;
+  pool.query('DELETE FROM comments WHERE post_id= $1', [post_id], (q_err, q_res) => {
+    res.json(q_res.rows);
+    console.log(q_err);
+  });
+});
+
 router.delete('/api/delete/post', (req, res, next) => {
   const post_id = req.body.post_id;
   pool.query('DELETE FROM posts WHERE pid = $1', [post_id], (q_err, q_res) => {
