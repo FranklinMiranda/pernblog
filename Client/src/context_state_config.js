@@ -5,6 +5,8 @@ import * as ACTIONS from './store/actions/actions';
 import * as Reducer1 from './store/reducers/plain_reducer';
 import * as AuthReducer from './store/reducers/auth_reducer';
 import * as FormReducer from './store/reducers/form_reducer';
+import * as PostsReducer from './store/reducers/posts_reducer';
+
 import Routes from './routes';
 
 import Auth from './utils/auth';
@@ -42,6 +44,14 @@ const ContextState = () => {
     dispatchAuthReducer(ACTIONS.login_failure());
   };
 
+  const handleDBProfile = (profile) => {
+    dispatchAuthReducer(ACTIONS.set_db_profile(profile));
+  };
+
+  const handleRemoveDBProfile = () => {
+    dispatchAuthReducer(ACTIONS.remove_db_profile());
+  };
+
   const handleAddProfile = (profile) => {
     dispatchAuthReducer(ACTIONS.add_profile(profile));
   };
@@ -64,6 +74,20 @@ const ContextState = () => {
     event.preventDefault();
     event.persist();
     dispatchFormReducer(ACTIONS.user_input_submit(event.target.useContext.value));
+  };
+
+  /* 
+Posts Reducer
+*/
+
+  const [statePostsReducer, dispatchPostsReducer] = useReducer(PostsReducer.PostsReducer, PostsReducer.initialState);
+
+  const handleSetPosts = (posts) => {
+    dispatchPostsReducer(ACTIONS.set_db_posts(posts));
+  };
+
+  const handleRemovePosts = () => {
+    dispatchPostsReducer(ACTIONS.remove_db_posts());
   };
 
   // Handle authentication from callback
@@ -90,12 +114,21 @@ const ContextState = () => {
           useContextChange: (event) => handleFormChange(event),
 
           // Auth Reducer
+          // keep for global state 
           authState: stateAuthReducer.is_authenticated,
+          dbProfileState: stateAuthReducer.db_profile,
           profileState: stateAuthReducer.profile,
+          handleAddBDProfile: (profile) => handleDBProfile(profile),
+          handleRemoveDBProfile: () => handleRemoveDBProfile(),
           handleUserLogin: () => handleLogin(),
           handleUserLogout: () => handleLogout(),
           handleUserAddProfile: (profile) => handleAddProfile(profile),
           handleUserRemoveProfile: () => handleRemoveProfile(),
+
+          // Posts State 
+          postsState: statePostsReducer.posts,
+          handleAddPosts: (posts) => handleSetPosts(posts),
+          handleRemovePosts: () => handleRemovePosts(),
 
           // Handle auth
           handleAuth: (props) => handleAuthentication(props),
