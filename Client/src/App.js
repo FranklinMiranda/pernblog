@@ -1,12 +1,13 @@
-import Home from './hooks/home'
+import React from 'react';
+import ContextState from "./context_state_config";
 
-
-function App() {
-  return (
-    <div className="App">
-     <Home/>
+const App = () => {
+  return 
+  (
+    <div>
+      <ContextState/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App; 
