@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Router, Route, Switch, Redirect } from 'react-router';
+import { Router, Route, Routes, Navigate } from 'react-router';
 import history from './utils/history';
 import Context from './utils/context';
 import AuthCheck from './utils/authcheck';
@@ -13,7 +13,7 @@ import PrivateComponent from './hooks/privatecomponent';
 import Profile from './hooks/profile';
 
 const PrivateRoute = ({ component: Component, auth }) => (
-  <Route render={(props) => (auth === true ? <Component auth={auth} {...props} /> : <Redirect to={{ pathname: '/' }} />)} />
+  <Route render={(props) => (auth === true ? <Component auth={auth} {...props} /> : <Navigate to={{ pathname: '/' }} />)} />
 );
 
 const Routes = () => {
@@ -26,15 +26,15 @@ const Routes = () => {
         <br />
         <br />
         <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/hooksform" component={HooksForm} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/hookscontainer" component={HooksContainer1} />
-            <Route path="/authcheck" component={AuthCheck} />
+          <Routes>
+            <Route exact path="/" element={Home} />
+            <Route path="/hooksform" element={HooksForm} />
+            <Route path="/profile" element={Profile} />
+            <Route path="/hookscontainer" element={HooksContainer1} />
+            <Route path="/authcheck" element={AuthCheck} />
 
-            <PrivateRoute path="/privateroute" auth={context.authState} component={PrivateComponent} />
-            <PrivateRoute path="/profile" auth={context.authState} component={Profile} />
+            <PrivateRoute path="/privateroute" auth={context.authState} element={PrivateComponent} />
+            <PrivateRoute path="/profile" auth={context.authState} element={Profile} />
             <Route
               path="/callback"
               render={(props) => {
@@ -42,7 +42,7 @@ const Routes = () => {
                 return <Callback />;
               }}
             />
-          </Switch>
+          </Routes>
         </div>
       </Router>
     </div>
