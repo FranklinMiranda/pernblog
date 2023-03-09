@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Router, Route, Routes, Navigate } from 'react-router';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router';
 import history from './utils/history';
 import Context from './utils/context';
 import AuthCheck from './utils/authcheck';
@@ -21,13 +21,13 @@ const Routes = () => {
 
   return (
     <div>
-      <Router history={history}>
+      <BrowserRouter>
         <Header />
         <br />
         <br />
         <div>
           <Routes>
-            <Route exact path="/" element={Home} />
+            <Route path="/" element={Home} />
             <Route path="/hooksform" element={HooksForm} />
             <Route path="/profile" element={Profile} />
             <Route path="/hookscontainer" element={HooksContainer1} />
@@ -44,7 +44,7 @@ const Routes = () => {
             />
           </Routes>
         </div>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 };
