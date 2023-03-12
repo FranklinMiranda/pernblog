@@ -1,13 +1,12 @@
 import React from 'react';
-import ContextState from "./context_state_config";
+import ContextState from './context_state_config';
 
 const App = () => {
-  return 
-  (
+  return (
     <div>
-      <ContextState/>
+      <ContextState />
     </div>
-  )
-}
+  );
+};
 
-export default App; 
+export default App;
